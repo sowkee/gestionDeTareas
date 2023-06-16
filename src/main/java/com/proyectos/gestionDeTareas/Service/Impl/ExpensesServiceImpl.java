@@ -1,4 +1,8 @@
 package com.proyectos.gestionDeTareas.Service.Impl;
 
-public class ExpensesServiceImpl {
+import com.proyectos.gestionDeTareas.Service.IExpensesService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ExpensesServiceImpl implements IExpensesService {
 }

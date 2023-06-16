@@ -6,20 +6,20 @@ import javax.persistence.*;
 @Table(name = "user_expenses")
 public class Expenses {
     @Id
-    @Column(name = "id_user_expenses")
-    private long id;
+    @Column(name = "id_expenses")
+    private long idExpenses;
     @Column(name = "user_amount")
     private int monto;
     @ManyToOne
     @JoinColumn(name = "ID_USER")
     private User user;
 
-    public long getId() {
-        return id;
+    public long getIdExpenses() {
+        return idExpenses;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setIdExpenses(long idExpenses) {
+        this.idExpenses = idExpenses;
     }
 
     public int getMonto() {

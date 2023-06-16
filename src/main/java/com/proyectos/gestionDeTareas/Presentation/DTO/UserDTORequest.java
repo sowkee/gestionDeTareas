@@ -1,33 +1,27 @@
-package com.proyectos.gestionDeTareas.Entity;
+package com.proyectos.gestionDeTareas.Presentation.DTO;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.proyectos.gestionDeTareas.Entity.Expenses;
+import com.proyectos.gestionDeTareas.Entity.Task;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.util.List;
 
+@Component
+public class UserDTORequest {
 
-@Entity
-@Table(name = "USERS")
-public class User {
-
-    @Id
-    @Column(name = "ID_USER")
     private long idUser;
-    @JsonIgnore
-    @Column(name = "USER_NAME")
+
     private String userName;
-    @Column(name = "USER_LASTNAME")
+
     private String userLastName;
-    @Column(name = "USER_PASSWORD")
+
     private String userPassword;
-    @Column(name = "ID_TASK")
+
     private long idTask;
-    @Column(name = "ID_EXPENSES")
+
     private long idExpenses;
-    @OneToMany(mappedBy = "user")
-    private List<Task> userTask;
-    @OneToMany(mappedBy = "user")
-    private List<Expenses> userExpenses;
 
     public long getIdUser() {
         return idUser;
@@ -53,6 +47,14 @@ public class User {
         this.userLastName = userLastName;
     }
 
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
     public long getIdTask() {
         return idTask;
     }
@@ -68,14 +70,4 @@ public class User {
     public void setIdExpenses(long idExpenses) {
         this.idExpenses = idExpenses;
     }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-
-
 }

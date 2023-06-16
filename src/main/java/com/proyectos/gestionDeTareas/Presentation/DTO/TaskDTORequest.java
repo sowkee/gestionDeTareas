@@ -1,27 +1,14 @@
-package com.proyectos.gestionDeTareas.Entity;
+package com.proyectos.gestionDeTareas.Presentation.DTO;
 
-import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.*;
+import org.springframework.stereotype.Component;
 import java.sql.Date;
 
-
-@Entity
-@Table(name = "USERS")
-public class Task {
-    @Id
-    @Column(name = "ID_TASK")
+@Component
+public class TaskDTORequest {
     private long idTask;
-    @Column(name = "TASK_TITLE")
     private String taskTitle;
-    @Column(name = "TASK_DESCRIPTION")
     private String taskDescription;
-    @CreationTimestamp
-    @Column(name = "TASK_DATE")
     private Date taskDate;
-    @ManyToOne
-    @JoinColumn(name = "ID_USER")
-    private User user;
 
     public long getIdTask() {
         return idTask;
@@ -53,13 +40,5 @@ public class Task {
 
     public void setTaskDate(Date taskDate) {
         this.taskDate = taskDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
