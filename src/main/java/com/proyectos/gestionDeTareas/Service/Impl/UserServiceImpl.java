@@ -58,21 +58,24 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDTOResponse createNewUser(UserDTORequest userDTORequest) {
 
-        if (userDTORequest == null) {
-            logger.warn("El request es null.");
-            return null;
-        }
+
         try {
-            logger.info("El request no es nulo e inicia conviertiendose a la entidad.");
+            if (userDTORequest == null) {
+                logger.warn("IMPL | El request es null.");
+                return null;
+            }
+            logger.info("IMPL | El request no es nulo");
             User user = objectMapper.convertValue(userDTORequest, User.class);
-            logger.info("Se guarda el nuevo usuario");
+            logger.info("IMPL | Se convierte a la entidad");
             iUserRepository.save(user);
-            logger.info("Se retorna de la entidad a la repuesta.");
+            logger.info("IMPL | Se guarda el nuevo usuario");
+            logger.info("IMPL | Se retorna de la entidad a la repuesta.");
             return convertUserToResponseDTO(user);
         } catch (Exception e) {
-            logger.error("An error ocurred.", e);
-            return null;
+            logger.error("IMPL | An error ocurred.", e);
+
         }
+        return null;
     }
 
     @Override

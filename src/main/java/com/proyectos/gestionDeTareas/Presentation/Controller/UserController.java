@@ -52,17 +52,25 @@ public class UserController {
     public ResponseEntity<Map<String, Object>> createNewUser(UserDTORequest userDTORequest) {
 
         Map<String, Object> res = new HashMap<>();
-        logger.info("CO | Entro el request a metodo createNewUser");
-        UserDTOResponse response = this.iUserService.createNewUser(userDTORequest);
 
-        if (response != null) {
+
+        try {
+            logger.info("CO | Entro el request a metodo createNewUser");
+            UserDTOResponse response = this.iUserService.createNewUser(userDTORequest);
+            if (response == null) {
+                res.put("status", HttpStatus.BAD_REQUEST);
+                res.put("message", "Error.");
+                return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+            }
             res.put("status", HttpStatus.CREATED);
             res.put("data", response);
             return new ResponseEntity<>(res, HttpStatus.CREATED);
+        }catch (Exception e) {
+            logger.error("CO | An error ocurred. ");
+            return null;
         }
-        res.put("status", HttpStatus.BAD_REQUEST);
-        res.put("message", "Error.");
-        return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+
+
     }
 
     @PutMapping("update/{id}")

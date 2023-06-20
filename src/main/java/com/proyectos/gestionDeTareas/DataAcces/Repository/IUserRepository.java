@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IUserRepository extends JpaRepository<User, Long> {
-    @Query("Select * from Users")
-    User getUserWithRelation();
+
 }

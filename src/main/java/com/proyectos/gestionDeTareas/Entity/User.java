@@ -1,6 +1,7 @@
 package com.proyectos.gestionDeTareas.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,20 +14,22 @@ public class User {
     @Id
     @Column(name = "ID_USER")
     private long idUser;
-    @JsonIgnore
+
     @Column(name = "USER_NAME")
     private String userName;
     @Column(name = "USER_LASTNAME")
     private String userLastName;
     @Column(name = "USER_PASSWORD")
     private String userPassword;
-    @Column(name = "ID_TASK")
-    private long idTask;
-    @Column(name = "ID_EXPENSES")
-    private long idExpenses;
-    @OneToMany(mappedBy = "user")
+
+
+    @OneToMany(cascade ={CascadeType.PERSIST}, mappedBy = "user")
+    @JsonIgnoreProperties("user")
     private List<Task> userTask;
-    @OneToMany(mappedBy = "user")
+
+
+    @OneToMany(cascade ={CascadeType.PERSIST}, mappedBy = "user")
+    @JsonIgnoreProperties("user")
     private List<Expenses> userExpenses;
 
     public long getIdUser() {
@@ -53,21 +56,6 @@ public class User {
         this.userLastName = userLastName;
     }
 
-    public long getIdTask() {
-        return idTask;
-    }
-
-    public void setIdTask(long idTask) {
-        this.idTask = idTask;
-    }
-
-    public long getIdExpenses() {
-        return idExpenses;
-    }
-
-    public void setIdExpenses(long idExpenses) {
-        this.idExpenses = idExpenses;
-    }
 
     public String getUserPassword() {
         return userPassword;
