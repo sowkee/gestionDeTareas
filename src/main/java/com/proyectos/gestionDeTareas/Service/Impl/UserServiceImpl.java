@@ -8,6 +8,7 @@ import com.proyectos.gestionDeTareas.DataAcces.Repository.IUserRepository;
 import com.proyectos.gestionDeTareas.Service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,24 +59,9 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDTOResponse createNewUser(UserDTORequest userDTORequest) {
 
-
-        try {
-            if (userDTORequest == null) {
-                logger.warn("IMPL | El request es null.");
-                return null;
-            }
-            logger.info("IMPL | El request no es nulo");
-            User user = objectMapper.convertValue(userDTORequest, User.class);
-            logger.info("IMPL | Se convierte a la entidad");
-            iUserRepository.save(user);
-            logger.info("IMPL | Se guarda el nuevo usuario");
-            logger.info("IMPL | Se retorna de la entidad a la repuesta.");
-            return convertUserToResponseDTO(user);
-        } catch (Exception e) {
-            logger.error("IMPL | An error ocurred.", e);
-
-        }
-        return null;
+        User user = objectMapper.convertValue(userDTORequest, User.class);
+        iUserRepository.save(user);
+        return  convertUserToResponseDTO(user);
     }
 
     @Override
@@ -83,7 +69,7 @@ public class UserServiceImpl implements IUserService {
 
         try {
             User user = iUserRepository.findById(id).orElseThrow(NoSuchElementException::new);
-            objectMapper.convertValue(user, UserDTORequest.class);
+            BeanUtils.copyProperties(userDTORequest, user);
             iUserRepository.save(user);
             return convertUserToResponseDTO(user);
         }catch (NoSuchElementException e) {

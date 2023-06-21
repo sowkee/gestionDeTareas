@@ -7,15 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExpensesDTORequest {
 
-    private long id;
+    private long idExpenses;
     private int monto;
 
-    public long getId() {
-        return id;
+    public long getIdExpenses() {
+        return idExpenses;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setIdExpenses(long idExpenses) {
+        this.idExpenses = idExpenses;
     }
 
     public int getMonto() {

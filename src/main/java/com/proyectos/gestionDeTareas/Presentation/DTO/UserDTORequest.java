@@ -1,27 +1,19 @@
 package com.proyectos.gestionDeTareas.Presentation.DTO;
 
-import com.proyectos.gestionDeTareas.Entity.Expenses;
-import com.proyectos.gestionDeTareas.Entity.Task;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import java.util.List;
 
 @Component
 public class UserDTORequest {
-
+    @JsonProperty("idUser")
     private long idUser;
-
+    @JsonProperty("userName")
     private String userName;
-
+    @JsonProperty("userLastName")
     private String userLastName;
-
+    @JsonProperty("userPassword")
     private String userPassword;
-
-    private long idTask;
-
-    private long idExpenses;
 
     public long getIdUser() {
         return idUser;
@@ -53,21 +45,5 @@ public class UserDTORequest {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
-    }
-
-    public long getIdTask() {
-        return idTask;
-    }
-
-    public void setIdTask(long idTask) {
-        this.idTask = idTask;
-    }
-
-    public long getIdExpenses() {
-        return idExpenses;
-    }
-
-    public void setIdExpenses(long idExpenses) {
-        this.idExpenses = idExpenses;
     }
 }

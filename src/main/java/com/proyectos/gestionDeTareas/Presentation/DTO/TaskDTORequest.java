@@ -1,13 +1,18 @@
 package com.proyectos.gestionDeTareas.Presentation.DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 import java.sql.Date;
 
 @Component
 public class TaskDTORequest {
+    @JsonProperty("idTask")
     private long idTask;
+    @JsonProperty("taskTitle")
     private String taskTitle;
+    @JsonProperty("taskDescription")
     private String taskDescription;
+    @JsonProperty("taskDate")
     private Date taskDate;
 
     public long getIdTask() {

@@ -1,36 +1,19 @@
 package com.proyectos.gestionDeTareas.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
-import java.util.List;
-
 
 @Entity
 @Table(name = "USERS")
 public class User {
-
     @Id
     @Column(name = "ID_USER")
     private long idUser;
-
-    @Column(name = "USER_NAME")
+    @Column(name = "NAME")
     private String userName;
-    @Column(name = "USER_LASTNAME")
+    @Column(name = "LASTNAME")
     private String userLastName;
-    @Column(name = "USER_PASSWORD")
+    @Column(name = "PASSWORD")
     private String userPassword;
-
-
-    @OneToMany(cascade ={CascadeType.PERSIST}, mappedBy = "user")
-    @JsonIgnoreProperties("user")
-    private List<Task> userTask;
-
-
-    @OneToMany(cascade ={CascadeType.PERSIST}, mappedBy = "user")
-    @JsonIgnoreProperties("user")
-    private List<Expenses> userExpenses;
 
     public long getIdUser() {
         return idUser;
@@ -56,7 +39,6 @@ public class User {
         this.userLastName = userLastName;
     }
 
-
     public String getUserPassword() {
         return userPassword;
     }
@@ -64,6 +46,4 @@ public class User {
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
-
-
 }

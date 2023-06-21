@@ -7,18 +7,19 @@ import java.sql.Date;
 
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "TASK")
 public class Task {
     @Id
     @Column(name = "ID_TASK")
     private long idTask;
-    @Column(name = "TASK_TITLE")
+    @Column(name = "TITLE")
     private String taskTitle;
-    @Column(name = "TASK_DESCRIPTION")
+    @Column(name = "DESCRIPTION")
     private String taskDescription;
     @CreationTimestamp
     @Column(name = "TASK_DATE")
     private Date taskDate;
+
     @ManyToOne
     @JoinColumn(name = "ID_USER")
     private User user;
@@ -55,11 +56,4 @@ public class Task {
         this.taskDate = taskDate;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
