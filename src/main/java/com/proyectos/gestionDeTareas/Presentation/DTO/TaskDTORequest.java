@@ -1,8 +1,10 @@
 package com.proyectos.gestionDeTareas.Presentation.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.proyectos.gestionDeTareas.Entity.User;
 import org.springframework.stereotype.Component;
 import java.sql.Date;
+import java.util.List;
 
 @Component
 public class TaskDTORequest {
@@ -14,6 +16,8 @@ public class TaskDTORequest {
     private String taskDescription;
     @JsonProperty("taskDate")
     private Date taskDate;
+    @JsonProperty("user")
+    private User user;
 
     public long getIdTask() {
         return idTask;
@@ -45,5 +49,13 @@ public class TaskDTORequest {
 
     public void setTaskDate(Date taskDate) {
         this.taskDate = taskDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

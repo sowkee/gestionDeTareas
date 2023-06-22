@@ -1,6 +1,7 @@
 package com.proyectos.gestionDeTareas.Entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "EXPENSES")
@@ -11,7 +12,7 @@ public class Expenses {
     @Column(name = "AMOUNT")
     private int monto;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER")
     private User user;
 

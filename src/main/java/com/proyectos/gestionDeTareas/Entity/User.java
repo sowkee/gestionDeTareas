@@ -1,6 +1,7 @@
 package com.proyectos.gestionDeTareas.Entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
@@ -14,6 +15,12 @@ public class User {
     private String userLastName;
     @Column(name = "PASSWORD")
     private String userPassword;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Task> tasks;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Expenses> expenses;
 
     public long getIdUser() {
         return idUser;
@@ -45,5 +52,21 @@ public class User {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public List<Expenses> getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(List<Expenses> expenses) {
+        this.expenses = expenses;
     }
 }

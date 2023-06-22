@@ -3,9 +3,12 @@ package com.proyectos.gestionDeTareas.Service.Impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyectos.gestionDeTareas.DataAcces.Repository.ITaskRepository;
+import com.proyectos.gestionDeTareas.DataAcces.Repository.IUserRepository;
 import com.proyectos.gestionDeTareas.Entity.Task;
+import com.proyectos.gestionDeTareas.Entity.User;
 import com.proyectos.gestionDeTareas.Presentation.DTO.TaskDTORequest;
 import com.proyectos.gestionDeTareas.Presentation.DTO.TaskDTOResponse;
+import com.proyectos.gestionDeTareas.Presentation.DTO.UserDTOResponse;
 import com.proyectos.gestionDeTareas.Service.ITaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -23,6 +27,8 @@ public class TaskServiceImpl implements ITaskService {
 
     @Autowired
     ITaskRepository iTaskRepository;
+    @Autowired
+    IUserRepository iUserRepository;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -46,10 +52,11 @@ public class TaskServiceImpl implements ITaskService {
     @Override
     public List<TaskDTOResponse> getAllTask() {
         List<Task> taskList = iTaskRepository.findAll();
+        List<TaskDTOResponse> listResponseSTOs = new ArrayList<>();
 
-        return taskList.stream()
-                .map(task -> objectMapper.convertValue(task, TaskDTOResponse.class))
-                .collect(Collectors.toList());
+        taskList.forEach(task -> listResponseSTOs.add(BeanUtils.copyProperties(task, TaskDTOResponse.class)));
+
+        return listResponseSTOs;
 
 
     }

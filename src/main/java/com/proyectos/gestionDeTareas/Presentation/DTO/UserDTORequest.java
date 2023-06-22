@@ -1,7 +1,13 @@
 package com.proyectos.gestionDeTareas.Presentation.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.proyectos.gestionDeTareas.Entity.Expenses;
+import com.proyectos.gestionDeTareas.Entity.Task;
 import org.springframework.stereotype.Component;
+
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 
 @Component
@@ -14,6 +20,12 @@ public class UserDTORequest {
     private String userLastName;
     @JsonProperty("userPassword")
     private String userPassword;
+
+    @JsonProperty("tasks")
+    private List<Task> tasks;
+
+    @JsonProperty("expenses")
+    private List<Expenses> expenses;
 
     public long getIdUser() {
         return idUser;

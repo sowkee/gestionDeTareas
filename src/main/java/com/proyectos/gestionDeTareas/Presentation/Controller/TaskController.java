@@ -30,7 +30,7 @@ public class TaskController {
         TaskDTOResponse response = iTaskService.getTaskById(id);;
 
         res.put("status", HttpStatus.OK);
-        res.put("data", response);
+        res.put("tasks", response);
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
@@ -42,7 +42,7 @@ public class TaskController {
         List<TaskDTOResponse> response = iTaskService.getAllTask();;
 
         res.put("status", HttpStatus.OK);
-        res.put("data", response);
+        res.put("tasks", response);
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
@@ -53,7 +53,7 @@ public class TaskController {
         Map<String, Object> res = new HashMap<>();
         TaskDTOResponse response = iTaskService.createNewTask(taskDTORequest);
         res.put("status", HttpStatus.CREATED);
-        res.put("data", response);
+        res.put("tasks", response);
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
@@ -63,7 +63,7 @@ public class TaskController {
         Map<String, Object> res = new HashMap<>();
         TaskDTOResponse response = iTaskService.updateTask(id, taskDTORequest);
         res.put("status", HttpStatus.ACCEPTED);
-        res.put("data", response);
+        res.put("tasks", response);
         return new ResponseEntity<>(res, HttpStatus.ACCEPTED);
     }
 
@@ -73,7 +73,7 @@ public class TaskController {
         Map<String, Object> res =new HashMap<>();
         String response = this.iTaskService.deleteTask(id);
         res.put("status", HttpStatus.OK);
-        res.put("data", response);
+        res.put("tasks", response);
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
