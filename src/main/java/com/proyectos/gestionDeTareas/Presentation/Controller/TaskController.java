@@ -37,14 +37,21 @@ public class TaskController {
 
     @GetMapping("get/all")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getAllExpenses () {
+    public ResponseEntity<Map<String, Object>> getAllTasks () {
         Map<String, Object> res = new HashMap<>();
-        List<TaskDTOResponse> response = iTaskService.getAllTask();;
+        try {
+            List<TaskDTOResponse> response = iTaskService.getAllTask();;
 
-        res.put("status", HttpStatus.OK);
-        res.put("tasks", response);
+            res.put("status", HttpStatus.OK);
+            res.put("tasks", response);
 
-        return new ResponseEntity<>(res, HttpStatus.OK);
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        }catch (Exception e) {
+            logger.error("Error.", e);
+        }
+        res.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+        res.put("message", "Error");
+        return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PostMapping("create")

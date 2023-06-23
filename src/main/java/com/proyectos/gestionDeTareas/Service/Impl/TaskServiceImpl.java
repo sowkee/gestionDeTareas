@@ -1,6 +1,8 @@
 package com.proyectos.gestionDeTareas.Service.Impl;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyectos.gestionDeTareas.DataAcces.Repository.ITaskRepository;
 import com.proyectos.gestionDeTareas.DataAcces.Repository.IUserRepository;
@@ -10,6 +12,8 @@ import com.proyectos.gestionDeTareas.Presentation.DTO.TaskDTORequest;
 import com.proyectos.gestionDeTareas.Presentation.DTO.TaskDTOResponse;
 import com.proyectos.gestionDeTareas.Presentation.DTO.UserDTOResponse;
 import com.proyectos.gestionDeTareas.Service.ITaskService;
+import com.proyectos.gestionDeTareas.Service.IUserService;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -27,11 +31,12 @@ public class TaskServiceImpl implements ITaskService {
 
     @Autowired
     ITaskRepository iTaskRepository;
-    @Autowired
-    IUserRepository iUserRepository;
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Autowired
+    IUserRepository iUserRepository;
 
     Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 
@@ -50,14 +55,32 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
-    public List<TaskDTOResponse> getAllTask() {
-        List<Task> taskList = iTaskRepository.findAll();
-        List<TaskDTOResponse> listResponseSTOs = new ArrayList<>();
+    public List<TaskDTOResponse> getAllTask() throws JsonProcessingException {
 
-        taskList.forEach(task -> listResponseSTOs.add(BeanUtils.copyProperties(task, TaskDTOResponse.class)));
+        List<Task> tasks = iTaskRepository.findAll();
+        List<TaskDTOResponse> taskDTOResponses = new ArrayList<>();
 
-        return listResponseSTOs;
+        for (Task task : tasks) {
+            TaskDTOResponse taskDTOResponse = new TaskDTOResponse();
 
+            taskDTOResponse.setIdTask(task.getIdTask());
+            taskDTOResponse.setTaskTitle(task.getTaskTitle());
+            taskDTOResponse.setTaskDescription(task.getTaskDescription());
+            taskDTOResponse.setTaskDate(task.getTaskDate());
+
+            UserDTOResponse userDTOResponse = new UserDTOResponse();
+            User user = iUserRepository.findById(task.getUser().getIdUser()).orElse(null);
+            if (user != null) {
+                userDTOResponse.setIdUser(user.getIdUser());
+                userDTOResponse.setUserName(user.getUserName());
+                userDTOResponse.setUserLastName(user.getUserLastName());
+                taskDTOResponse.setUser(userDTOResponse);
+            }
+
+            taskDTOResponses.add(taskDTOResponse);
+        }
+
+        return taskDTOResponses;
 
     }
 

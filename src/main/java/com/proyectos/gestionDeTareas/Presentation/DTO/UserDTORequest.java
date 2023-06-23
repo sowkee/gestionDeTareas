@@ -58,4 +58,12 @@ public class UserDTORequest {
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 }

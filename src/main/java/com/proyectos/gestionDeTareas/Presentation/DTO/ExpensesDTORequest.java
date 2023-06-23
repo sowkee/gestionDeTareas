@@ -14,6 +14,7 @@ public class ExpensesDTORequest {
     private long idExpenses;
     @JsonProperty("monto")
     private int monto;
+
     @JsonProperty("user")
     private User user;
 

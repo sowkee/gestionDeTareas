@@ -17,7 +17,7 @@ public class TaskDTORequest {
     @JsonProperty("taskDate")
     private Date taskDate;
     @JsonProperty("user")
-    private User user;
+    private UserDTOResponse user;
 
     public long getIdTask() {
         return idTask;
@@ -51,11 +51,11 @@ public class TaskDTORequest {
         this.taskDate = taskDate;
     }
 
-    public User getUser() {
+    public UserDTOResponse getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTOResponse user) {
         this.user = user;
     }
 }
