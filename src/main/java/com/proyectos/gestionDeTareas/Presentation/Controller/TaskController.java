@@ -7,6 +7,7 @@ import com.proyectos.gestionDeTareas.Service.ITaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,14 +55,19 @@ public class TaskController {
         return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PostMapping("create")
+    @PostMapping("create/{id}")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> createNewExpenses (@RequestBody TaskDTORequest taskDTORequest) {
+    public ResponseEntity<Map<String, Object>> createNewExpenses (@PathVariable("id") long id, @RequestBody TaskDTORequest taskDTORequest) throws ChangeSetPersister.NotFoundException {
         Map<String, Object> res = new HashMap<>();
-        TaskDTOResponse response = iTaskService.createNewTask(taskDTORequest);
-        res.put("status", HttpStatus.CREATED);
-        res.put("tasks", response);
-        return new ResponseEntity<>(res, HttpStatus.CREATED);
+        TaskDTOResponse response = iTaskService.createNewTask(id, taskDTORequest);
+        if (response != null) {
+            res.put("status", HttpStatus.CREATED);
+            res.put("tasks", response);
+            return new ResponseEntity<>(res, HttpStatus.CREATED);
+        }
+        res.put("status", HttpStatus.BAD_REQUEST);
+        res.put("Message", "Error.");
+        return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("update/{id}")

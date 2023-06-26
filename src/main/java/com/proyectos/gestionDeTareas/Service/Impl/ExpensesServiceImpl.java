@@ -3,11 +3,10 @@ package com.proyectos.gestionDeTareas.Service.Impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyectos.gestionDeTareas.DataAcces.Repository.IExpensesRepository;
 import com.proyectos.gestionDeTareas.Entity.Expenses;
-import com.proyectos.gestionDeTareas.Entity.Task;
-import com.proyectos.gestionDeTareas.Entity.User;
+
 import com.proyectos.gestionDeTareas.Presentation.DTO.ExpensesDTORequest;
 import com.proyectos.gestionDeTareas.Presentation.DTO.ExpensesDTOResponse;
-import com.proyectos.gestionDeTareas.Presentation.DTO.TaskDTOResponse;
+
 import com.proyectos.gestionDeTareas.Presentation.DTO.UserDTOResponse;
 import com.proyectos.gestionDeTareas.Service.IExpensesService;
 import org.slf4j.Logger;

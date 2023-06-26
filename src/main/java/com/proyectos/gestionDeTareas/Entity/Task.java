@@ -20,7 +20,7 @@ public class Task implements Serializable {
     @Column(name = "DESCRIPTION")
     private String taskDescription;
     @CreationTimestamp
-    @Column(name = "DATE")
+    @Column(name = "TASK_DATE")
     private Date taskDate;
     @ManyToOne
     @JoinColumn(name = "ID_USER")

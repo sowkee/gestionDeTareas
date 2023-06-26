@@ -1,6 +1,6 @@
 package com.proyectos.gestionDeTareas.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
