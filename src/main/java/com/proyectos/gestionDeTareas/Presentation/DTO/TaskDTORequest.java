@@ -1,5 +1,6 @@
 package com.proyectos.gestionDeTareas.Presentation.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.proyectos.gestionDeTareas.Entity.User;
 import org.springframework.stereotype.Component;
@@ -7,6 +8,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Component
+@JsonIgnoreProperties
 public class TaskDTORequest {
     @JsonProperty("idTask")
     private long idTask;

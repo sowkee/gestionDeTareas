@@ -33,7 +33,7 @@ public class UserController {
             return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
         }
         res.put("status", HttpStatus.OK);
-        res.put("data", response);
+        res.put("users", response);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
@@ -43,7 +43,7 @@ public class UserController {
         Map<String, Object> res = new HashMap<>();
         List<UserDTOResponse> listResponseDto = this.iUserService.getAllUsers();
         res.put("status", HttpStatus.OK);
-        res.put("data", listResponseDto);
+        res.put("users", listResponseDto);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
@@ -54,7 +54,7 @@ public class UserController {
         logger.info("CO | Entro el request a metodo createNewUser");
         UserDTOResponse response = this.iUserService.createNewUser(userDTORequest);
         res.put("status", HttpStatus.CREATED);
-        res.put("data", response);
+        res.put("users", response);
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
@@ -66,11 +66,11 @@ public class UserController {
 
         try {
             res.put("status", HttpStatus.OK);
-            res.put("data", response);
+            res.put("users", response);
             return new ResponseEntity<>(res, HttpStatus.OK);
         }catch (Exception e) {
             res.put("status", HttpStatus.BAD_REQUEST);
-            res.put("data", response);
+            res.put("message", "");
             return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
         }
     }

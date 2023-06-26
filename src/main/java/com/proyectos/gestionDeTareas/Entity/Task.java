@@ -1,16 +1,17 @@
 package com.proyectos.gestionDeTareas.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
 @Table(name = "TASK")
-public class Task {
+@JsonIgnoreProperties("user")
+public class Task implements Serializable {
     @Id
     @Column(name = "ID_TASK")
     private long idTask;
@@ -19,10 +20,9 @@ public class Task {
     @Column(name = "DESCRIPTION")
     private String taskDescription;
     @CreationTimestamp
-    @Column(name = "TASK_DATE")
+    @Column(name = "DATE")
     private Date taskDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ID_USER")
     private User user;
 

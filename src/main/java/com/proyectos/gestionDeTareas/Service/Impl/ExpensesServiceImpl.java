@@ -7,6 +7,8 @@ import com.proyectos.gestionDeTareas.Entity.Task;
 import com.proyectos.gestionDeTareas.Entity.User;
 import com.proyectos.gestionDeTareas.Presentation.DTO.ExpensesDTORequest;
 import com.proyectos.gestionDeTareas.Presentation.DTO.ExpensesDTOResponse;
+import com.proyectos.gestionDeTareas.Presentation.DTO.TaskDTOResponse;
+import com.proyectos.gestionDeTareas.Presentation.DTO.UserDTOResponse;
 import com.proyectos.gestionDeTareas.Service.IExpensesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,11 +49,17 @@ public class ExpensesServiceImpl implements IExpensesService {
 
     @Override
     public List<ExpensesDTOResponse> getAllExpenses() {
-        List<Expenses> expensesList = iExpensesRepository.findAll();
+        List<Expenses> expenses = iExpensesRepository.findAll();
 
-        return expensesList.stream()
-                .map(expenses -> objectMapper.convertValue(expenses, ExpensesDTOResponse.class))
-                        .collect(Collectors.toList());
+        List<ExpensesDTOResponse> expensesDTOResponses = expenses.stream()
+                .map(expense -> {
+                    ExpensesDTOResponse expensesDTOResponse = objectMapper.convertValue(expense, ExpensesDTOResponse.class);
+                    expensesDTOResponse.setUser(objectMapper.convertValue(expense.getUser(), UserDTOResponse.class));
+                    return expensesDTOResponse;
+                })
+                .collect(Collectors.toList());
+
+        return expensesDTOResponses;
     }
 
     @Override

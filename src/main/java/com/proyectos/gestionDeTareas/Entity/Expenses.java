@@ -1,18 +1,22 @@
 package com.proyectos.gestionDeTareas.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "EXPENSES")
-public class Expenses {
+@JsonIgnoreProperties("user")
+public class Expenses implements Serializable {
     @Id
     @Column(name = "ID_EXPENSES")
     private long idExpenses;
     @Column(name = "AMOUNT")
     private int monto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ID_USER")
     private User user;
 
@@ -32,4 +36,11 @@ public class Expenses {
         this.monto = monto;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

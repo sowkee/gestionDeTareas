@@ -2,29 +2,24 @@ package com.proyectos.gestionDeTareas.Service.Impl;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyectos.gestionDeTareas.DataAcces.Repository.ITaskRepository;
 import com.proyectos.gestionDeTareas.DataAcces.Repository.IUserRepository;
 import com.proyectos.gestionDeTareas.Entity.Task;
-import com.proyectos.gestionDeTareas.Entity.User;
 import com.proyectos.gestionDeTareas.Presentation.DTO.TaskDTORequest;
 import com.proyectos.gestionDeTareas.Presentation.DTO.TaskDTOResponse;
 import com.proyectos.gestionDeTareas.Presentation.DTO.UserDTOResponse;
 import com.proyectos.gestionDeTareas.Service.ITaskService;
-import com.proyectos.gestionDeTareas.Service.IUserService;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @Service
 public class TaskServiceImpl implements ITaskService {
@@ -55,30 +50,17 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
-    public List<TaskDTOResponse> getAllTask() throws JsonProcessingException {
+    public List<TaskDTOResponse> getAllTask() throws JsonProcessingException{
 
         List<Task> tasks = iTaskRepository.findAll();
-        List<TaskDTOResponse> taskDTOResponses = new ArrayList<>();
 
-        for (Task task : tasks) {
-            TaskDTOResponse taskDTOResponse = new TaskDTOResponse();
-
-            taskDTOResponse.setIdTask(task.getIdTask());
-            taskDTOResponse.setTaskTitle(task.getTaskTitle());
-            taskDTOResponse.setTaskDescription(task.getTaskDescription());
-            taskDTOResponse.setTaskDate(task.getTaskDate());
-
-            UserDTOResponse userDTOResponse = new UserDTOResponse();
-            User user = iUserRepository.findById(task.getUser().getIdUser()).orElse(null);
-            if (user != null) {
-                userDTOResponse.setIdUser(user.getIdUser());
-                userDTOResponse.setUserName(user.getUserName());
-                userDTOResponse.setUserLastName(user.getUserLastName());
-                taskDTOResponse.setUser(userDTOResponse);
-            }
-
-            taskDTOResponses.add(taskDTOResponse);
-        }
+        List<TaskDTOResponse> taskDTOResponses = tasks.stream()
+                .map(task -> {
+                    TaskDTOResponse taskDTOResponse = objectMapper.convertValue(task, TaskDTOResponse.class);
+                    taskDTOResponse.setUser(objectMapper.convertValue(task.getUser(), UserDTOResponse.class));
+                    return taskDTOResponse;
+                })
+                .collect(Collectors.toList());
 
         return taskDTOResponses;
 
@@ -89,13 +71,14 @@ public class TaskServiceImpl implements ITaskService {
         Task task = objectMapper.convertValue(taskDTORequest, Task.class);
         iTaskRepository.save(task);
 
+
         return convertTaskToResponseDTO(task);
     }
 
     @Override
     public TaskDTOResponse updateTask(long id, TaskDTORequest taskDTORequest) {
         Task task = iTaskRepository.findById(id).orElseThrow(NoSuchElementException::new);
-        BeanUtils.copyProperties(taskDTORequest, task);
+        //BeanUtils.copyProperties(taskDTORequest, task);
         iTaskRepository.save(task);
 
         return convertTaskToResponseDTO(task);

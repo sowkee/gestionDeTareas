@@ -7,12 +7,13 @@ import com.proyectos.gestionDeTareas.Presentation.DTO.TaskDTORequest;
 import com.proyectos.gestionDeTareas.Presentation.DTO.TaskDTOResponse;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @Service
 public interface    ITaskService {
     TaskDTOResponse getTaskById(long id);
-    List<TaskDTOResponse> getAllTask() throws JsonProcessingException;
+    List<TaskDTOResponse> getAllTask() throws JsonProcessingException, InvocationTargetException, IllegalAccessException;
     TaskDTOResponse createNewTask(TaskDTORequest taskDTORequest);
     TaskDTOResponse updateTask(long id, TaskDTORequest taskDTORequest);
     String deleteTask(long id);

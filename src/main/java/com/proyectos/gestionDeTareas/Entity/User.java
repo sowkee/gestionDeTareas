@@ -1,11 +1,14 @@
 package com.proyectos.gestionDeTareas.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User implements Serializable {
     @Id
     @Column(name = "ID_USER")
     private long idUser;
@@ -16,10 +19,10 @@ public class User {
     @Column(name = "PASSWORD")
     private String userPassword;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     private List<Task> tasks;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     private List<Expenses> expenses;
 
     public long getIdUser() {

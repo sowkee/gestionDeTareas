@@ -31,18 +31,18 @@ public class ExpensesController {
         Map<String, Object> res = new HashMap<>();
         ExpensesDTOResponse response = this.iExpensesService.getExpenseById(id);
         res.put("status", HttpStatus.OK);
-        res.put("data", response);
+        res.put("expenses", response);
 
         return  new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @GetMapping("get")
+    @GetMapping("get/all")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getAllExpenses () {
         Map<String, Object> res = new HashMap<>();
         List<ExpensesDTOResponse> listResponseDto = this.iExpensesService.getAllExpenses();
         res.put("status", HttpStatus.OK);
-        res.put("data", listResponseDto);
+        res.put("expenses", listResponseDto);
         return  new ResponseEntity<>(res, HttpStatus.OK);
     }
 
@@ -52,7 +52,7 @@ public class ExpensesController {
         Map<String, Object> res = new HashMap<>();
         ExpensesDTOResponse response = this.iExpensesService.createNewExpense(expensesDTORequest);
         res.put("status", HttpStatus.CREATED);
-        res.put("data", response);
+        res.put("expenses", response);
 
         return  new ResponseEntity<>(res, HttpStatus.CREATED);
     }
@@ -63,7 +63,7 @@ public class ExpensesController {
         Map<String, Object> res = new HashMap<>();
         ExpensesDTOResponse response = this.iExpensesService.updateExpense(id, expensesDTORequest);
         res.put("status", HttpStatus.OK);
-        res.put("data", response);
+        res.put("expenses", response);
         return  new ResponseEntity<>(res, HttpStatus.OK);
     }
 
@@ -73,6 +73,7 @@ public class ExpensesController {
         Map<String, Object> res = new HashMap<>();
         String response = this.iExpensesService.deleteTask(id);
         res.put("status", HttpStatus.OK);
+        res.put("expenses", response);
         return  new ResponseEntity<>(res, HttpStatus.OK);
     }
 

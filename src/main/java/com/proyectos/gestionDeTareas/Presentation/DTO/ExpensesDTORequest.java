@@ -16,7 +16,7 @@ public class ExpensesDTORequest {
     private int monto;
 
     @JsonProperty("user")
-    private User user;
+    private UserDTOResponse user;
 
     public long getIdExpenses() {
         return idExpenses;
@@ -34,5 +34,11 @@ public class ExpensesDTORequest {
         this.monto = monto;
     }
 
+    public UserDTOResponse getUser() {
+        return user;
+    }
 
+    public void setUser(UserDTOResponse user) {
+        this.user = user;
+    }
 }

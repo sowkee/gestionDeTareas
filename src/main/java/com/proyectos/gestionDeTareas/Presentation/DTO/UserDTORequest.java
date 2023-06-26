@@ -1,5 +1,6 @@
 package com.proyectos.gestionDeTareas.Presentation.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.proyectos.gestionDeTareas.Entity.Expenses;
 import com.proyectos.gestionDeTareas.Entity.Task;
@@ -20,10 +21,8 @@ public class UserDTORequest {
     private String userLastName;
     @JsonProperty("userPassword")
     private String userPassword;
-
     @JsonProperty("tasks")
     private List<Task> tasks;
-
     @JsonProperty("expenses")
     private List<Expenses> expenses;
 
@@ -65,5 +64,13 @@ public class UserDTORequest {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public List<Expenses> getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(List<Expenses> expenses) {
+        this.expenses = expenses;
     }
 }
